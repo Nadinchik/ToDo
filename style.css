@@ -1,0 +1,26 @@
+
+
+body {
+    text-align: center;
+    background-color: #3c6dc5;
+    color: white;
+    font-family: helvetica;
+}
+
+h1 {
+    margin-top: 100px;
+}
+
+ul,
+li{
+    list-style: none;
+}
+
+ul {
+    display: inline-block;
+    cursor: move;
+    text-align: left;
+    width: 300px;
+    max-width: 100%;
+}
+
