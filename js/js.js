@@ -3,33 +3,41 @@ $(document).ready (function($) {
     addTask();
     let todos = [];
 
+   function appendTodo(){
+       $('#todoList').find('li').remove();
+       $(todos).each(function(i,t) {
+           $('#todoList').append('<li class="'+ i.status +'">'+
+       '<input class="textTask" type="text" value='+ i.textTodo +'>'+
+       '<input class="toggle" type="checkbox" id="'+ i +'"' +
+               + (i.taskId == 'completed' ? ' checked ' : '' ) + '>' +
+       '<button class="close" id="'+ i +'"></button></li>');
+       });
+       if (todos.status === "completed") {
+           $('#todoList .toggle').prop('checked', true);
+       } else if (todos.status === "active") {
+           $('#todoList .toggle').prop('checked', false);
+       }
+
+   }
+
 
     function addTask() {
         $("#addBtn").click(function () {
-            let valueTask =$("#myInput").val();
+            let valueTask =$("#todoInput").val();
             const todo ={textTodo:valueTask,
-                         id:Math.random(),
+                         taskId:Math.random(),
                          status:false,}
             if(!(valueTask.trim())){
                 alert("Enter text!")
             }
+            $('#footer').show();
             todos.push(todo);
-
-            let addElem="<li id='"+todo.id+"'>" +
-                "<input type='checkbox'" +
-                " name='todoDone'"+
-                " class='todoDone'"+
-                " value='" + valueTask + "'/> " +
-                valueTask +
-                "<button class='delTodo'>Del</button></li>";
-            $("#todoList").append(addElem);
-
+            appendTodo();
             console.log(todos);
-            $("#myInput").val("");
-
+            $("#todoInput").val("");
         });
 
-        $('#myInput').keydown(function(eventObject){
+        $('#todoInput').keydown(function(eventObject){
             if (eventObject.keyCode == 13) {
                 $("#addBtn").click();
                 return false;
@@ -38,8 +46,10 @@ $(document).ready (function($) {
         });
     }
 
-    $('#todoList').on('click', '.delTodo', function () {
 
+
+   //Удаление задачи
+    $('#todoList').on('click', '.delTodo', function () {
          const idForDelete = $(this).parent().attr("id");
           let indexForDeleteTodoArray;
           todos.forEach((todo, i)=>{
@@ -47,25 +57,14 @@ $(document).ready (function($) {
                   indexForDeleteTodoArray=i;
               }
           });
-          todos.splice(idForDelete, 1)
+          todos.splice(indexForDeleteTodoArray, 1)
           $(this).parent().empty();
           console.log(todos)
     });
 
 
-    function completeTodoItem() {
-        $(this).parent().toggleClass("strike");
-    }
-
-    $('#todoList').on('click', function (ev) {
-        if (ev.target.tagName === 'li') {
-            ev.target.classList.toggle('checked');
-        }
-    }, false);
 
 
-
-    $(document).on('click', ".todo-item-done", completeTodoItem)
 
 });
 
