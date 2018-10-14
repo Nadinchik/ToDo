@@ -13,11 +13,14 @@ $(document).ready (function($) {
             if(!(valueTask.trim())){
                 alert("Enter text!")
             }
-            todos.push(todo)
+            todos.push(todo);
 
             let addElem="<li id='"+todo.id+"'>" +
-                "<input type='checkbox' class='todoDone'>"+
-                + valueTask +
+                "<input type='checkbox'" +
+                " name='todoDone'"+
+                " class='todoDone'"+
+                " value='" + valueTask + "'/> " +
+                valueTask +
                 "<button class='delTodo'>Del</button></li>";
             $("#todoList").append(addElem);
 
@@ -36,9 +39,6 @@ $(document).ready (function($) {
     }
 
     $('#todoList').on('click', '.delTodo', function () {
-      /*  var index = $(this).parent().parent().index();
-        todos.splice(index, 1);
-        console.log(todos);*/
 
          const idForDelete = $(this).parent().attr("id");
           let indexForDeleteTodoArray;
@@ -53,11 +53,21 @@ $(document).ready (function($) {
     });
 
 
+    function completeTodoItem() {
+        $(this).parent().toggleClass("strike");
+    }
+
+    $('#todoList').on('click', function (ev) {
+        if (ev.target.tagName === 'li') {
+            ev.target.classList.toggle('checked');
+        }
+    }, false);
+
+
+
+    $(document).on('click', ".todo-item-done", completeTodoItem)
+
 });
 
-$('#todoList').on('click', function (ev) {
-    if (ev.target.tagName === 'li') {
-        ev.target.classList.toggle('checked');
-    }
-}, false);
+
 

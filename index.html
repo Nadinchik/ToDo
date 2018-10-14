@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ToDo list</title>
-    <link type="text/css" rel="stylesheet" href="style.css">
+    <link type="text/css" rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
@@ -15,10 +15,13 @@
     <h1>To Do list</h1>
     <input type="text" id="myInput">
     <input type="submit" id="addBtn" value="Add">
-    <input id="allToggle" type="checkbox"><label for="allToggle">Mark all as complete</label>
+    <input id="allToggle" type="checkbox"><label for="allToggle">All complete</label>
 </div>
 <div>
     <ul id="todoList" class="List"></ul>
+</div>
+<div>
+    <ul id="todoListComplete" class="List"></ul>
 </div>
 <footer id="footer" style="display: none;">
         <span class="todoCount">
@@ -38,7 +41,7 @@
     <button id="clearCompleteTodo" style="display: none;">Clear completed</button>
 </footer>
 
-<script src="js.js"></script>
+<script src="js/js.js"></script>
 
 </body>
 
