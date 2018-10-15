@@ -10,26 +10,40 @@ body {
     color: white;
 }
 
-h1 {
-    margin-top: 100px;
-}
-
 ul,
 li{
-    list-style: none;
-}
+    list-style: none;}
 
 ul {
-    display: inline-block;
     cursor: move;
     text-align: left;
-    width: 300px;
     max-width: 100%;
 }
 
-.strike {
+input[type="checkbox"] {
+    width: auto;
+}
+
+.check {
     text-decoration: line-through;
 }
+
+#header {
+    margin: auto 0;
+    color: #3aafbf;
+    font-size: 24px;
+    text-align: center;
+}
+
+.todoCount {
+    float: left;
+    text-align: left;
+}
+
+.todo-count strong {
+    font-weight: 300;
+}
+
 #footer {
     color: #777777;
     padding: 10px 15px;
@@ -50,12 +64,12 @@ ul {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
-.todo-count {
+.todoCount {
     float: left;
     text-align: left;
 }
 
-.todo-count strong {
+.todoCount strong {
     font-weight: 300;
 }
 
@@ -84,7 +98,7 @@ ul, menu, dir {
 
 li {
     display: list-item;
-    text-align: -webkit-match-parent;
+
 }
 
 #filters li a.active{
@@ -108,7 +122,7 @@ li {
     border-radius: 3px;
 }
 
-#clear-completed {
+#clearCompleteTodo {
     position: relative;
     float: right;
     line-height: 20px;
@@ -121,9 +135,8 @@ li {
 /* FOOTER */
 footer {
     margin: auto 0;
-    color: #bfbfbf;
+    color: #6fbbbf;
     font-size: 10px;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
     text-align: center;
 }
 

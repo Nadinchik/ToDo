@@ -13,9 +13,9 @@
 
 <div id="header" class="head">
     <h1>To Do list</h1>
+    <input id="allToggle" type="checkbox"><label for="allToggle"></label>
     <input type="text" id="todoInput">
     <input type="submit" id="addBtn" value="Add">
-    <input id="allToggle" type="checkbox"><label for="allToggle">All complete</label>
 </div>
 <div>
     <ul id="todoList" class="List"></ul>
@@ -25,20 +25,15 @@
 </div>
 <footer id="footer" style="display: none;">
         <span class="todoCount">
-          <strong class="count"> </strong> items left
-        </span>
+          <strong class="count"> </strong> items left</span>
     <ul id="filters">
-        <li>
-            <a href="#" class="allTodoShow">All</a>
-        </li>
-        <li>
-            <a href="#" class="activeTodoShow">Active</a>
-        </li>
-        <li>
-            <a href="#" class="completeTodoShow">Completed</a>
-        </li>
+        <li><a href="#" class="allTodoShow">All</a></li>
+        <li><a href="#" class="activeTodoShow">Active</a></li>
+        <li><a href="#" class="completeTodoShow">Completed</a></li>
+        <li><button id="delCompleteTodo">Del completed</button></li>
     </ul>
-    <button id="clearCompleteTodo" style="display: none;">Clear completed</button>
+
+
 </footer>
 
 <script src="js/js.js"></script>
@@ -46,6 +41,3 @@
 </body>
 
 </html>
-
-
-
