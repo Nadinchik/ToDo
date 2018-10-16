@@ -1,47 +1,55 @@
 $(document).ready (function($) {
     addTask();
-    let todos = [];
+    let todos =[];
+    let taskId=0;
+    let actualList=[];
 
     function appendTodo(){
+        let checked = actualList[index].status;
         $('#todoList').find('li').remove();
         $(todos).each(function(i,t) {
-            $('#todoList').append('<li class="'+ t.status +'">'+
-                '<input class="toggle" type="checkbox">' +
-                '<input class="textTask" type="text" readonly  value="'+ t.textTodo +'">'+
-                '<button class="delTodo" id="'+ i +'">x</button></li>');
+            $('#todoList').append('<li class="todoItem '+ t.status +'"  id="${taskId}">\
+                <div class="todoTask"><input class="todoCheckbox" type="checkbox">\
+                <input class="textTask" type="text" readonly  value="'+ t.textTodo +'">\
+                <button class="delTodo" id="'+ i +'">x</button>\</div>\</li>');
         });
-        if (todos.status === "completed") {
-            $('#todoList .toggle').prop('checked', true);
-        } else if (todos.status === "active") {
-            $('#todoList .toggle').prop('checked', false);
+        if (checked==true) {
+            $('#' + taskId).find(':checkbox').prop('checked', true);
+        } else {
+            $('#' + taskId).find(':checkbox').prop('checked', false);
         }
-        tasksCount();
+        todos.filter(function (task) {
+            if (task.status == false) {
+                activeCount += 1;
+                console.log(activeCount)
+            } else {
+                completedCount += 1;}
+        });
+        $('#activeCount').text('Active: ' + activeCount);
+        $('#completedCount').text('Completed: ' + completedCount);
+        activeCount = 0;
+        completedCount = 0;
     }
 
 
     function completed() {
-        if ($(this).parent().css('textDecoration') == 'line-through' ) {
+        if ($(this).parent().css('textDecoration') == 'line-through') {
             $(this).parent().css('textDecoration', 'none');
         } else {
             $(this).parent().css('textDecoration', 'line-through');
         }
     }
 
-    function tasksCount() {
-        $('.count').text(todos.length);
-        if (todos.length < 1) {
-            $('#footer').hide();
-        }
-    }
 
 
     function addTask() {
         $("#addBtn").click(function () {
-            let valueTask =$("#todoInput").val();
-            let todo ={textTodo:valueTask,
-                taskId:Math.random(),
-                status:false,}
-            if(!(valueTask.trim())){
+            let valueTask = $("#todoInput").val();
+            let todo = {
+                textTodo: valueTask,
+                taskId: Math.random(),
+                status: false,}
+            if (!(valueTask.trim())) {
                 alert("Enter text!")
             }
             $('#footer').show();
@@ -51,61 +59,62 @@ $(document).ready (function($) {
             $("#todoInput").val("");
         });
 
-        $('#todoInput').keydown(function(eventObject){
+        $('#todoInput').keydown(function (eventObject) {
             if (eventObject.keyCode === 13) {
                 $("#addBtn").click();
                 return false;
             }
         });
 
-//checkbox
-        $('#todoList').on('click', '.toggle', function (e) {
-            var id = parseInt(e.target.dataset.id);
-            todos[id].status = "completed";
-            if (!$(this).prop("checked")) {
-                todos[id].status = "active";
-            }
-            appendTodo();
+        //edit
+        $('#todoList').on('dblclick', '.textTask', function () {
+            var thisData = this.innerHTML,
+                $el = $('<input type="text" class="inEditText"/>');
+            $(this).replaceWith($el);
+            $el.val(thisData).focus();
+            $(this).find(".text").hide();
+            $(this).find(".delTodo").hide();
+
         });
     }
 
 
-    $("#allToggle").click(function () {
-        $('input:checkbox').not(this).prop('checked', this.checked);
-        if ($('li.head').css('check') == 'line-through' ) {
-            $('li.head').css('check', 'none');
+    function checkTask() {
+        let id = $(this).parents('li').prop('id');
+        if ($(this).prop('checked')) {
+            for (task of todos) {
+                if (task.id == id) {
+                    task.status = true;
+                }
+            }
         } else {
-            $('li.head').css('check', 'line-through');
+            for (task of todos) {
+                if (task.id == id) {
+                    task.status = false;
+                }
+            }
         }
+        appendTodo();
+    }
+
+
+    $("#allCheck").click(function () {
+        $('input:checkbox').not(this).prop('checked', this.checked);
     });
 
-    $(document).on('click', '.toggle', completed);
-    $("#delCompleteTodo").click(delComplete());
+    $('#delCompleteTodo').on('click', delComplete);
 
 
-    $('.todoItem').dblclick('.textTask', function (e) {
-        let parent=$(this);
-        const input=parent.find('.textTask');
-        const id=parent.attr('id');
-        input.prop("readonly", false);
-        input.keydown(function(e){
-            if(e.keyCode === 13){
-                appendTodo();
-            }
-        });
-        $('.textTask').on("blur", function (e) {
-            appendTodo();
-        })
-    })
 
     function delComplete(){
-        for(let i=0; i<todos.length; i++){
-            if(todos[id].check == true){
-                todos[id].splice(todos, indexOf(todos[i],1))
-                --i
-            }
+        for (i = 0; i < todos.length; i++) {
+            if (todos[i].status == true) {
+                todos.splice(todos.indexOf(todos[i]), 1)
+                --i}
         }
-        $('#delCompleteTodo').on('click', delComplete);
+        $('#allCheck').prop('checked', false)
+        filteredList = todos.slice()
+
     }
 
 
